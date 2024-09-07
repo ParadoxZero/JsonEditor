@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WebInfoEditor (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WebInfoEditor (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
