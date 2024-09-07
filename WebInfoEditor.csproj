@@ -19,8 +19,8 @@
     <None Remove="Controls\JsonEditor.xaml" />
     <None Remove="Controls\ListEditor.xaml" />
     <None Remove="Controls\StringEditor.xaml" />
+    <None Remove="Pages\ConfigPage.xaml" />
     <None Remove="Pages\EditorPage.xaml" />
-    <None Remove="Pages\SettingsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +36,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -78,9 +79,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\SettingsPage.xaml">
+    <Page Update="Pages\ConfigPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <!--
