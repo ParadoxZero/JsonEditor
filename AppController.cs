@@ -1,5 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
+using System.Security;
+using System.Security.Cryptography;
+using System.Text;
+using WebInfoEditor.Model;
+using Windows.Storage;
 
 namespace WebInfoEditor
 {
@@ -7,6 +13,7 @@ namespace WebInfoEditor
     {
         private static AppController _instance;
         private Window window;
+        private Frame frame;
 
         public static AppController GetInstance()
         {
@@ -14,16 +21,17 @@ namespace WebInfoEditor
             return _instance;
         }
 
-        private AppController() { }
+        private AppController()
+        {
+            window = new Window();
+            frame = new Frame();
+            window.Content = frame;
+            window.Activate();
+        }
 
         public void OnAppStart()
         {
-            window = new Window();
-            Frame frame = new Frame();
-            window.Content = frame;
-
-            frame.Navigate(typeof(Pages.SettingsPage));
-            window.Activate();
+            frame.Navigate(typeof(Pages.ConfigPage));
         }
     }
 
