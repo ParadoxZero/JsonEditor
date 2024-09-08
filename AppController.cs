@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Cryptography;
@@ -26,6 +27,7 @@ namespace WebInfoEditor
             window = new Window();
             frame = new Frame();
             window.Content = frame;
+            window.SystemBackdrop = new MicaBackdrop();
             window.Activate();
         }
 

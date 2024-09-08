@@ -6,10 +6,31 @@
     xmlns:local="using:WebInfoEditor.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Spacing="10"
+                Background="{ThemeResource AcrylicInAppFillColorBaseBrush}"
+                Padding="50" 
+                BorderBrush="{ThemeResource CircleElevationBorderBrush}"
+                CornerRadius="25">
+        <PasswordBox 
+            PasswordChanged="PasswordBox_PasswordChanged" 
+            PlaceholderText="Enter Azure Blob Storage SAS Token" 
+            Width="750"
+            Name="tokenPasswordBox"
+         />
+
+        <TextBox 
+            PlaceholderText="URL of the JSON file" 
+            Width="750" 
+            AcceptsReturn="True" 
+            Name="fileUrl"
+            Header="Enter File URL"
+            Text="{Binding LastOpenedFile, Mode=TwoWay}"
+            />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+            <Button x:Name="myButton" Click="onEditJsonButtonClicked">Edit JSON</Button>
+        </StackPanel>
     </StackPanel>
 </Page>

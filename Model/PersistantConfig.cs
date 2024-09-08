@@ -15,7 +15,7 @@ namespace WebInfoEditor.Model
         public IEnumerable<string> openedFiles;
         public SecureString token;
 
-        public PersistantConfig GetConfig()
+        public static PersistantConfig LoadConfig()
         {
             PersistantConfig config = new();
 
@@ -34,21 +34,21 @@ namespace WebInfoEditor.Model
             return config;
         }
 
-        public void SetConfig(PersistantConfig config)
+        public static void SetConfig(PersistantConfig config)
         {
             ApplicationData.Current.LocalSettings.Values["lastOpenedFile"] = config.lastOpenedFile;
             ApplicationData.Current.LocalSettings.Values["openedFiles"] = config.openedFiles;
             SaveToken(config.token);
         }
 
-        private void SaveToken(SecureString token)
+        private static void SaveToken(SecureString token)
         {
             byte[] dataBytes = Encoding.UTF8.GetBytes(token.ToString());
             ProtectedData.Protect(dataBytes, null, DataProtectionScope.CurrentUser);
             ApplicationData.Current.LocalSettings.Values["token"] = dataBytes;
         }
 
-        private SecureString LoadToken()
+        private static SecureString LoadToken()
         {
             SecureString secureString = new SecureString();
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue("EncryptedData", out object encryptedData))

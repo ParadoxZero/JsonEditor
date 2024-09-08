@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security;
+using WebInfoEditor.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -28,9 +30,32 @@ namespace WebInfoEditor.Pages
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            myButton.Content = "Clicked";
+            base.OnNavigatedTo(e);
+            if (this.DataContext == null)
+            {
+                this.DataContext = new Pages.ConfigPageViewModel();
+                this.tokenPasswordBox.Password = ((ConfigPageViewModel)this.DataContext).Token.ToString();
+            }
+        }
+
+        private void onEditJsonButtonClicked(object sender, RoutedEventArgs e)
+        { 
+            ((ConfigPageViewModel)this.DataContext)?.SaveConfig();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                SecureString token = new SecureString();
+                foreach (char c in ((PasswordBox)sender).Password)
+                {
+                    token.AppendChar(c);
+                }
+                ((ConfigPageViewModel)this.DataContext).Token = token;
+            }
         }
     }
 }
