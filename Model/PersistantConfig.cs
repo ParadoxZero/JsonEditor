@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
@@ -44,19 +45,27 @@ namespace WebInfoEditor.Model
         private static void SaveToken(SecureString token)
         {
             byte[] dataBytes = Encoding.UTF8.GetBytes(token.ToString());
-            ProtectedData.Protect(dataBytes, null, DataProtectionScope.CurrentUser);
-            ApplicationData.Current.LocalSettings.Values["token"] = dataBytes;
+            byte[] encryptedBytes = ProtectedData.Protect(dataBytes, null, DataProtectionScope.CurrentUser); ;
+            string encryptedData = Convert.ToBase64String(encryptedBytes);
+            ApplicationData.Current.LocalSettings.Values["token"] = encryptedData;
         }
 
         private static SecureString LoadToken()
         {
             SecureString secureString = new SecureString();
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue("EncryptedData", out object encryptedData))
+            if (ApplicationData.Current.LocalSettings.Values.TryGetValue("token", out object encryptedData))
             {
-                var decryptedData = ProtectedData.Unprotect((byte[])encryptedData, null, DataProtectionScope.CurrentUser);
-                foreach (char c in Encoding.UTF8.GetString(decryptedData))
+                try
                 {
-                    secureString.AppendChar(c);
+                    string dataString = (string)encryptedData;
+                    var decryptedData = ProtectedData.Unprotect(Convert.FromBase64String(dataString), null, DataProtectionScope.CurrentUser);
+                    foreach (char c in Encoding.UTF8.GetString(decryptedData))
+                    {
+                        secureString.AppendChar(c);
+                    }
+                } catch (CryptographicException)
+                {
+                    // Invalid data, ignore
                 }
             }
             return secureString;

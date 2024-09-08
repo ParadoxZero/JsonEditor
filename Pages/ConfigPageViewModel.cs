@@ -38,6 +38,5 @@ namespace WebInfoEditor.Pages
         {
             PersistantConfig.SetConfig(config);
         }
-
     }
 }
