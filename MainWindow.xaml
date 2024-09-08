@@ -8,6 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="JSON Editor"
-    SystemBackdrop="{ThemeResource AcrylicBackgroundFillColorDefaultBackdrop}"
     >
+    
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </Window.SystemBackdrop>
+    <Frame Name="MainFrame" />
 </Window>

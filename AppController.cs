@@ -1,39 +1,37 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using System.Collections.Generic;
-using System.Security;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Security;
 using WebInfoEditor.Model;
-using Windows.Storage;
 
 namespace WebInfoEditor
 {
     internal class AppController
     {
         private static AppController _instance;
-        private Window window;
-        private Frame frame;
+        private MainWindow window;
 
-        public static AppController GetInstance()
+        public static AppController Instance
         {
-            _instance ??= new AppController();
-            return _instance;
+            get
+            {
+                _instance ??= new AppController();
+                return _instance;
+            }
         }
 
         private AppController()
         {
-            window = new Window();
-            frame = new Frame();
-            window.Content = frame;
-            window.SystemBackdrop = new MicaBackdrop();
+            window = new MainWindow();
+            window.ExtendsContentIntoTitleBar = true;
             window.Activate();
         }
 
         public void OnAppStart()
         {
-            frame.Navigate(typeof(Pages.ConfigPage));
+            window.Frame.Navigate(typeof(Pages.ConfigPage));
+        }
+        
+        public void EditJson(string path, SecureString token)
+        {
+            AzureJsonFile file = new AzureJsonFile(path, token);
         }
     }
 

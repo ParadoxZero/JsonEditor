@@ -27,5 +27,13 @@ namespace WebInfoEditor
         {
             this.InitializeComponent();
         }
+
+        public Frame Frame
+        {
+            get
+            {
+                return this.MainFrame;
+            }
+        }
     }
 }
