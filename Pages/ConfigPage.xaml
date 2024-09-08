@@ -19,6 +19,7 @@
             PlaceholderText="Enter Azure Blob Storage SAS Token" 
             Width="750"
             Name="tokenPasswordBox"
+            Header="Enter Access Token"
          />
 
         <TextBox 

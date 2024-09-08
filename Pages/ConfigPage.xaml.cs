@@ -36,7 +36,10 @@ namespace WebInfoEditor.Pages
             if (this.DataContext == null)
             {
                 this.DataContext = new Pages.ConfigPageViewModel();
-                this.tokenPasswordBox.Password = ((ConfigPageViewModel)this.DataContext).Token.ToString();
+                SecureString token = ((ConfigPageViewModel)this.DataContext).Token;
+                if (token.Length > 0) {
+                    this.tokenPasswordBox.Password = token.ToString();
+                }
             }
         }
 
