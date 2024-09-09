@@ -32,6 +32,7 @@
         <ToggleSwitch 
             Name="ShowPasswordCheckbox"
             Header="Show token"
+            Toggled="ShowPasswordCheckbox_Toggled"
         />
         </StackPanel>
 

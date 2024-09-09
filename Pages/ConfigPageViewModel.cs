@@ -17,9 +17,10 @@ namespace WebInfoEditor.Pages
             config = PersistantConfig.LoadConfig();
         }
 
-        public SecureString Token { 
-            get => config.token; 
-            set => config.token = value; 
+        public SecureString Token
+        {
+            get => config.token;
+            set => config.token = value;
         }
 
         public string LastOpenedFile

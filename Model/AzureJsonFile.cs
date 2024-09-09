@@ -19,7 +19,7 @@ namespace WebInfoEditor.Model
             _token = token;
         }
 
-        public async void LoadJson() 
+        public async void LoadJson()
         {
             string testJson = "{'test':'testVal','other':'otherval','list':[]}";
             _jsonObject = JsonSerializer.Deserialize<dynamic>(testJson);

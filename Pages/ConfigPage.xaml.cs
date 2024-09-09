@@ -9,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security;
+using System.Text;
 using WebInfoEditor.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -37,14 +39,15 @@ namespace WebInfoEditor.Pages
             {
                 this.DataContext = new Pages.ConfigPageViewModel();
                 SecureString token = ((ConfigPageViewModel)this.DataContext).Token;
-                if (token.Length > 0) {
-                    this.tokenPasswordBox.Password = token.ToString();
+                if (token.Length > 0)
+                {
+                    this.tokenPasswordBox.Password = token.ToUnsecureString();
                 }
             }
         }
 
         private void onEditJsonButtonClicked(object sender, RoutedEventArgs e)
-        { 
+        {
             ((ConfigPageViewModel)this.DataContext)?.SaveConfig();
         }
 
@@ -58,6 +61,18 @@ namespace WebInfoEditor.Pages
                     token.AppendChar(c);
                 }
                 ((ConfigPageViewModel)this.DataContext).Token = token;
+            }
+        }
+
+        private void ShowPasswordCheckbox_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (ShowPasswordCheckbox.IsOn)
+            {
+                tokenPasswordBox.PasswordRevealMode = PasswordRevealMode.Visible;
+            }
+            else
+            {
+                tokenPasswordBox.PasswordRevealMode = PasswordRevealMode.Hidden;
             }
         }
     }

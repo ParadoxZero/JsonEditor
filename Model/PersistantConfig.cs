@@ -44,7 +44,7 @@ namespace WebInfoEditor.Model
 
         private static void SaveToken(SecureString token)
         {
-            byte[] dataBytes = Encoding.UTF8.GetBytes(token.ToString());
+            byte[] dataBytes = Encoding.UTF8.GetBytes(token.ToUnsecureString());
             byte[] encryptedBytes = ProtectedData.Protect(dataBytes, null, DataProtectionScope.CurrentUser); ;
             string encryptedData = Convert.ToBase64String(encryptedBytes);
             ApplicationData.Current.LocalSettings.Values["token"] = encryptedData;
@@ -63,7 +63,8 @@ namespace WebInfoEditor.Model
                     {
                         secureString.AppendChar(c);
                     }
-                } catch (CryptographicException)
+                }
+                catch (CryptographicException)
                 {
                     // Invalid data, ignore
                 }

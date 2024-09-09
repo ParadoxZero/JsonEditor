@@ -28,7 +28,7 @@ namespace WebInfoEditor
         {
             window.Frame.Navigate(typeof(Pages.ConfigPage));
         }
-        
+
         public void EditJson(string path, SecureString token)
         {
             AzureJsonFile file = new AzureJsonFile(path, token);
